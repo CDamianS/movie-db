@@ -2,7 +2,6 @@ import React from 'react'
 import { IMovieCard } from './types'
 import { IMAGE_SOURCE } from '../../constants/moviesMock'
 import genres from "../../constants/genres.json"
-import star from '../../constants/Gold_Star.svg.svg'
 import { useNavigate } from 'react-router-dom'
 import { ROUTES } from '../../routes/constants'
 
@@ -26,14 +25,14 @@ const MovieCard: React.FC<IMovieCard> = ({
         }
     }
 
-    const navigateMovies = (id: number, movieName: string) => {
-        navigate(`${ROUTES.SHOW}${id}`, { state: { movieName } });
+    const navigateMovies = (id: number, movieName: string, genre: string | undefined, voteAverage: number) => {
+        navigate(`${ROUTES.SHOW}${id}`, { state: { movieName, genre, voteAverage } });
     }
 
     return (
         <div className='grid'
             onClick={() => {
-                navigateMovies(movieId, title);
+                navigateMovies(movieId, title, getGenre(genreId), voteAverage);
             }}>
             <div className='relative mx-4 mb-4 h-96 w-64 border-black rounded-lg shadow-sm hover:scale-110 transition duration-150' style={{ backgroundImage: `url(${poster})`, backgroundSize: 'cover' }}>
                 <div className='absolute bottom-5 left-3 font-sans text-cyan-50'>
@@ -50,7 +49,7 @@ const MovieCard: React.FC<IMovieCard> = ({
 
 
                 </div>
-                <p className='absolute bottom-4 left-7 font-sans text-ctp-text'>: {voteAverage}/10</p>
+                <p className='absolute bottom-4 left-7 font-sans text-ctp-text'>: {Math.round(voteAverage * 100) / 100}/10</p>
             </div>
 
 

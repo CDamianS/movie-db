@@ -31,7 +31,6 @@ const Home: React.FC = () => {
             .then((data) => {
                 if (data && data.data) {
                     setNowPlaying(data.data.results);
-
                 }
             })
             .catch((err) => {
@@ -65,7 +64,7 @@ const Home: React.FC = () => {
     return (
         <div className='relative bg-ctp-crust'>
             <div className='flex p-6 px-4 font-sans- text-2xl font-semibold text-ctp-text'>
-                Populares
+                Popular
             </div>
             <div className='flex space-x-2 overflow-x-auto'>
                 {popular?.length > 0 &&

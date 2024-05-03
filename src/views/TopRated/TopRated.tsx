@@ -31,6 +31,9 @@ const TopRated: React.FC = () => {
     return (
         <div className='relative bg-ctp-crust overflow-x-auto'>
             {isLoading && <div>Loading...</div>}
+            <div className='p-6 px-4 font-sans- text-2xl font-semibold text-ctp-text'>
+                Top Rated
+            </div>
             <div className='grid gap-4 grid-cols-5 grid-flow-row'>
                 {movies?.length > 0 &&
                     movies.map((movie) => (

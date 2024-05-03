@@ -1,7 +1,8 @@
 export const ROUTES = {
-  HOME: "/",
-  POPULAR: "/Popular",
-  NOW_PLAYING: "/NowPlaying",
-  TOP_RATED: "/TopRated",
-  SHOW: '/show/',
+    HOME: "/",
+    POPULAR: "/popular",
+    NOW_PLAYING: "/nowPlaying",
+    TOP_RATED: "/topRated",
+    SHOW: '/show/',
+    FAVOURITES: '/favourites',
 }

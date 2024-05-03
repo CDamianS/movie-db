@@ -1,8 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, useLocation, useNavigate } from 'react-router-dom'
 import { getDetails } from "../../services";
+import { IMovieDetail } from '../Favourites/types';
 
-const Show: React.FC = () => {
+const Show: React.FC<IMovieDetail = ({
+    title,
+    adult,
+    runtime,
+    release_date,
+    vote_average,
+    popularity,
+    tagline,
+
+}) => {
     const { id } = useParams();
     const location = useLocation();
     const navigate = useNavigate();
@@ -29,6 +39,7 @@ const Show: React.FC = () => {
         let newFavourites = [...favs];
         newFavourites = newFavourites.filter((e) => e !== id);
         setFavourites(JSON.stringify(newFavourites));
+        setIsFavourite(false);
         localStorage.setItem('favourites', JSON.stringify(newFavourites))
     }
 
@@ -56,7 +67,9 @@ const Show: React.FC = () => {
                     <button onClick={removeFavourite}>Remove from Favourites</button>
                 </div>
             ) : (
-                <button onClick={addFavourite}>Add to Favourites</button>
+                <div>
+                    <button onClick={addFavourite}>Add to Favourites</button>
+                </div>
             )
             }
             {
@@ -72,7 +85,7 @@ const Show: React.FC = () => {
                     </div>
                 )
             }
-        </div>
+        </div >
     )
 }
 

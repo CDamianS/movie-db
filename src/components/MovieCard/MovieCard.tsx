@@ -58,4 +58,4 @@ const MovieCard: React.FC<IMovieCard> = ({
     )
 }
 
-export default MovieCard
+export default MovieCard;

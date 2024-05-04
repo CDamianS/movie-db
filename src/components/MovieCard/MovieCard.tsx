@@ -25,14 +25,14 @@ const MovieCard: React.FC<IMovieCard> = ({
         }
     }
 
-    const navigateMovies = (id: number, movieName: string, genre: string | undefined, voteAverage: number) => {
-        navigate(`${ROUTES.SHOW}${id}`, { state: { movieName, genre, voteAverage } });
+    const navigateMovies = (id: number, movieName: string) => {
+        navigate(`${ROUTES.SHOW}${id}`, { state: { movieName } });
     }
 
     return (
         <div className='grid'
             onClick={() => {
-                navigateMovies(movieId, title, getGenre(genreId), voteAverage);
+                navigateMovies(movieId, title);
             }}>
             <div className='relative mx-4 mb-4 h-96 w-64 border-black rounded-lg shadow-sm hover:scale-110 transition duration-150' style={{ backgroundImage: `url(${poster})`, backgroundSize: 'cover' }}>
                 <div className='absolute bottom-5 left-3 font-sans text-cyan-50'>

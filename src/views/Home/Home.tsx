@@ -63,6 +63,7 @@ const Home: React.FC = () => {
 
     return (
         <div className='relative bg-ctp-crust'>
+            {isLoading && <div>Loading...</div>}
             <div className='flex p-6 px-4 font-sans- text-2xl font-semibold text-ctp-text'>
                 Popular
             </div>

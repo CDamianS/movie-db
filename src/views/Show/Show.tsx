@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { useParams, useLocation, useNavigate } from 'react-router-dom'
 import { IMAGE_SOURCE } from '../../constants/moviesMock';
 import { MovieGenres } from '../../components/MovieGenres';
+import { MovieCard } from '../../components/MovieCard';
 import { MovieFacts } from '../../components/MovieFacts';
 import { getDetails } from "../../services";
 import { IMovieDetail } from '../Favourites/types';
+import { IMovieResponse } from '../Home/types'
+import { getSimilar } from '../../services/movies/getSimilarMovies';
 
 const Show: React.FC = () => {
     const { id } = useParams();
@@ -16,6 +19,7 @@ const Show: React.FC = () => {
     const [loading, setIsLoading] = useState(true);
     const [isFavourite, setIsFavourite] = useState<boolean>(false);
     const [favourites, setFavourites] = useState<string>('');
+    const [similar, setSimilar] = React.useState<IMovieResponse[]>([]);
 
     const getMovieDetails = async (id: string | undefined) => {
         await getDetails(id)
@@ -28,6 +32,20 @@ const Show: React.FC = () => {
                 console.log(err);
             });
     };
+    const getSimilarMovies = async (id: string | undefined) => {
+        await getSimilar(id)
+            .then((data) => {
+                if (data && data.data) {
+                    setSimilar(data.data.results);
+
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+
+    }
+
     const goBack = () => {
         navigate(-1);
     };
@@ -59,6 +77,7 @@ const Show: React.FC = () => {
             setIsFavourite(true);
         }
         getMovieDetails(id);
+        getSimilarMovies(id);
         setIsLoading(false)
     }, []);
 
@@ -72,7 +91,7 @@ const Show: React.FC = () => {
         <div className='relative bg-ctp-crust min-h-screen'>
             {loading && <div>Loading...</div>}
             <div className='flex p-4'>
-                <img className="rounded-lg" src={poster} />
+                <img className="rounded-lg" src={poster} alt={movie?.title} />
                 <div className="items-center justify-between mx-auto">
                     <div className='p-6 px-4 font-sans text-6xl font-bold text-ctp-text'>{movie?.title}</div>
                     <MovieFacts adult={movie?.adult} runtime={movie?.runtime} release_date={movie?.release_date} rating={movie?.vote_average} votes={movie?.vote_count} />
@@ -109,6 +128,20 @@ const Show: React.FC = () => {
                 )
             }
             <div className='p-6 px-4 font-sans text-3xl font-bold text-ctp-text'>Similar Movies</div>
+            <div className='flex space-x-2 overflow-x-auto'>
+                {similar?.length > 0 &&
+                    similar.map((movie) => (
+                        <MovieCard
+                            movieId={movie.id}
+                            posterPath={movie.poster_path}
+                            title={movie.title}
+                            voteAverage={movie.vote_average}
+                            genreId={movie.genre_ids[0]}
+                        />
+
+                    ))}
+            </div>
+
         </div >
     )
 }

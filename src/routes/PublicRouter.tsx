@@ -1,8 +1,7 @@
-import { TopBar } from "../components/TopBar";
 import { Outlet } from "react-router-dom";
 
-const PublicRouter = () =>{
-    return(
+const PublicRouter = () => {
+    return (
         <>
             <div>Public Router</div>
             <Outlet />

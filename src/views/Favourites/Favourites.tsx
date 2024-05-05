@@ -57,7 +57,9 @@ const Favourites: React.FC = () => {
                         ))}
                 </div>
             ) : (
-                <div className="title-popular">No favorites</div>
+                <div className="flex p-6 px-4 font-sans- text-2xl font-semibold text-ctp-text">
+                    No favourites
+                </div>
             )}
         </div>
     );
